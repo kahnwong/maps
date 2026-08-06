@@ -2,7 +2,7 @@
   "name": "maps",
   "version": "0.0.1",
   "private": true,
-  "description": "A Quasar Project",
+  "description": "For displaying pmtiles.",
   "keywords": [
     "quasar",
     "quasar-app",
