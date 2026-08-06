@@ -27,6 +27,42 @@ const mapContainer = ref<HTMLDivElement | null>(null);
 let map: maplibregl.Map | undefined;
 let protocol: Protocol | undefined;
 
+function getMapLayers(
+  flavor: typeof LIGHT | typeof DARK
+): StyleSpecification["layers"] {
+  return layers("protomaps", flavor, { lang: "en" }).map(layer => {
+    if (layer.id !== "pois") {
+      return layer;
+    }
+
+    const poiLayer = layer as maplibregl.SymbolLayerSpecification;
+
+    return {
+      ...poiLayer,
+      layout: {
+        ...poiLayer.layout,
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          1,
+          16,
+          1.15,
+          19,
+          1.25
+        ]
+      },
+      paint: {
+        ...poiLayer.paint,
+        "icon-halo-color": themeMode.value === "dark" ? "#000000" : "#FFFFFF",
+        "icon-halo-width": 1,
+        "icon-opacity": 1
+      }
+    };
+  });
+}
+
 function getMapStyle(): StyleSpecification {
   const theme = themeMode.value;
   const baseFlavor = theme === "dark" ? DARK : LIGHT;
@@ -41,7 +77,7 @@ function getMapStyle(): StyleSpecification {
         url: `pmtiles://${PMTILES_URL}`
       }
     },
-    layers: layers("protomaps", baseFlavor, { lang: "en" })
+    layers: getMapLayers(baseFlavor)
   };
 }
 
