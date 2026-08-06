@@ -26,4 +26,16 @@
 
 <script setup lang="ts">
 import { themeMode, toggleTheme } from "@/config/theme";
+
+// analytics
+if (process.env.NODE_ENV != "development") {
+  const analyticsScript = document.createElement("script");
+  analyticsScript.setAttribute("defer", "");
+  analyticsScript.setAttribute("src", "https://vzdko.karnwong.me/script.js");
+  analyticsScript.setAttribute(
+    "data-website-id",
+    "b83a33a7-aeef-4f6d-b1f0-d8a8bdc25ced"
+  );
+  document.head.appendChild(analyticsScript);
+}
 </script>
