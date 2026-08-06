@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import { DARK, layers, LIGHT, type Flavor } from "@protomaps/basemaps";
+import { DARK, layers, LIGHT } from "@protomaps/basemaps";
 import * as maplibregl from "maplibre-gl";
 import type { StyleSpecification } from "maplibre-gl";
 import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
@@ -27,22 +27,6 @@ const mapContainer = ref<HTMLDivElement | null>(null);
 let map: maplibregl.Map | undefined;
 let protocol: Protocol | undefined;
 
-function getMapFlavor(flavor: Flavor): Flavor {
-  return {
-    ...flavor,
-    pois: {
-      blue: "#0077FF",
-      green: "#00A651",
-      lapis: "#264DFF",
-      pink: "#FF2E9F",
-      red: "#FF2D55",
-      slategray: "#5B5CE2",
-      tangerine: "#FF8A00",
-      turquoise: "#00BCD4"
-    }
-  };
-}
-
 function getMapStyle(): StyleSpecification {
   const theme = themeMode.value;
   const baseFlavor = theme === "dark" ? DARK : LIGHT;
@@ -57,7 +41,7 @@ function getMapStyle(): StyleSpecification {
         url: `pmtiles://${PMTILES_URL}`
       }
     },
-    layers: layers("protomaps", getMapFlavor(baseFlavor), { lang: "en" })
+    layers: layers("protomaps", baseFlavor, { lang: "en" })
   };
 }
 
