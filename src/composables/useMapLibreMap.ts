@@ -156,7 +156,7 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
       paint: {
         "line-color": themeMode.value === "dark" ? "#90CAF9" : "#0D47A1",
         "line-opacity": 0.8,
-        "line-width": 1
+        "line-width": 3
       }
     });
     map.addLayer({
