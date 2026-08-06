@@ -3,6 +3,8 @@
 
 import { defineConfig } from "#q-app";
 
+import { PMTILES_URL } from "./src/config/map";
+
 export default defineConfig((/* ctx */) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -12,6 +14,10 @@ export default defineConfig((/* ctx */) => {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [],
+
+    htmlVariables: {
+      cspConnectSrc: ["'self'", new URL(PMTILES_URL).origin].join(" ")
+    },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: ["app.scss"],
@@ -46,7 +52,7 @@ export default defineConfig((/* ctx */) => {
       // https://v2.quasar.dev/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing
       // filenameBasedRouting: true,
 
-      vueRouterMode: "hash" // available values: 'hash', 'history'
+      vueRouterMode: "history" // available values: 'hash', 'history'
       // vueRouterBase,
 
       // publicPath: '/',
@@ -68,6 +74,10 @@ export default defineConfig((/* ctx */) => {
     devServer: {
       // vueDevtools: true,
       // https: true,
+      allowedHosts: (process.env.SERVER_ALLOWED_HOSTS ?? "")
+        .split(",")
+        .map(host => host.trim())
+        .filter(Boolean),
       open: true // opens browser window automatically
     },
 
