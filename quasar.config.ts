@@ -2,8 +2,14 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file
 
 import { defineConfig } from "#q-app";
+import { readFileSync } from "node:fs";
 
 import { MAP_GLYPHS_URL, MAP_SPRITE_URLS, PMTILES_URL } from "./src/config/map";
+
+const MAPLIBRE_DIST_URL = new URL(
+  "./node_modules/maplibre-gl/dist/",
+  import.meta.url
+);
 
 export default defineConfig((/* ctx */) => {
   return {
@@ -62,7 +68,7 @@ export default defineConfig((/* ctx */) => {
       // https://v2.quasar.dev/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing
       // filenameBasedRouting: true,
 
-      vueRouterMode: "history" // available values: 'hash', 'history'
+      vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
 
       // publicPath: '/',
@@ -72,7 +78,24 @@ export default defineConfig((/* ctx */) => {
       // minify: false,
       // distDir
 
-      // extendViteConf (viteConf) {},
+      extendViteConf(viteConf) {
+        viteConf.plugins ??= [];
+        viteConf.plugins.push({
+          name: "emit-maplibre-shared-worker-module",
+          generateBundle() {
+            for (const fileName of [
+              "maplibre-gl-shared.mjs",
+              "maplibre-gl-shared.mjs.map"
+            ]) {
+              this.emitFile({
+                type: "asset",
+                fileName: `assets/${fileName}`,
+                source: readFileSync(new URL(fileName, MAPLIBRE_DIST_URL))
+              });
+            }
+          }
+        });
+      }
       // viteVuePluginOptions: {},
 
       // vitePlugins: [
