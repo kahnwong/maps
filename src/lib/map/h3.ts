@@ -36,6 +36,7 @@ export interface H3FeatureCollection {
   features: Array<H3PolygonFeature | H3PointFeature>;
 }
 
+// ref: <https://github.com/clupasq/h3-viewer/blob/e52436d68df77f30c923701ea16a2a917e4b2e08/map.js#L19-L40>
 const ZOOM_TO_H3_RES_CORRESPONDENCE = {
   5: 1,
   6: 2,
