@@ -36,44 +36,49 @@ export interface H3FeatureCollection {
   features: Array<H3PolygonFeature | H3PointFeature>;
 }
 
+const ZOOM_TO_H3_RES_CORRESPONDENCE = {
+  5: 1,
+  6: 2,
+  7: 3,
+  8: 3,
+  9: 4,
+  10: 5,
+  11: 6,
+  12: 6,
+  13: 7,
+  14: 8,
+  15: 9,
+  16: 9,
+  17: 10,
+  18: 10,
+  19: 11,
+  20: 11,
+  21: 12,
+  22: 13,
+  23: 14,
+  24: 15
+} as const;
+
+const H3_RESOLUTION_ZOOM_ENTRIES = Object.entries(
+  ZOOM_TO_H3_RES_CORRESPONDENCE
+).map(([zoom, resolution]) => ({
+  zoom: Number(zoom),
+  resolution
+}));
+
 export function getH3ResolutionForZoom(zoom: number) {
-  if (zoom < 4) {
-    return 2;
-  }
-
-  if (zoom < 6) {
-    return 3;
-  }
-
-  if (zoom < 8) {
-    return 4;
-  }
-
-  if (zoom < 10) {
-    return 5;
-  }
-
-  if (zoom < 12) {
-    return 6;
-  }
-
-  if (zoom < 14) {
-    return 7;
-  }
-
-  if (zoom < 16) {
-    return 8;
-  }
-
-  if (zoom < 18) {
-    return 9;
-  }
-
-  return 10;
+  const roundedZoom = Math.round(zoom);
+  const clampedZoom = Math.min(24, Math.max(5, roundedZoom));
+  return ZOOM_TO_H3_RES_CORRESPONDENCE[
+    clampedZoom as keyof typeof ZOOM_TO_H3_RES_CORRESPONDENCE
+  ];
 }
 
 export function getMapZoomForH3Resolution(resolution: number) {
-  return Math.min(19, Math.max(4, resolution * 2));
+  return (
+    H3_RESOLUTION_ZOOM_ENTRIES.find(entry => entry.resolution >= resolution)
+      ?.zoom ?? 24
+  );
 }
 
 export function normalizeH3CellId(value: string) {
