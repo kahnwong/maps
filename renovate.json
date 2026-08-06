@@ -4,7 +4,10 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["/(^|/)rust-toolchain\\.toml$/", "/(^|/)rust-toolchain$/"],
+      "managerFilePatterns": [
+        "/(^|/)rust-toolchain\\.toml$/",
+        "/(^|/)rust-toolchain$/"
+      ],
       "matchStrings": ["channel\\s*=\\s*\"(?<currentValue>.*)\""],
       "depNameTemplate": "rust",
       "datasourceTemplate": "docker",
@@ -22,7 +25,10 @@
     },
     {
       "customType": "regex",
-      "managerFilePatterns": ["/(^|/)[Dd]ockerfile$/", "/(^|/)[Dd]ockerfile\\.[a-zA-Z0-9-]+$/"],
+      "managerFilePatterns": [
+        "/(^|/)[Dd]ockerfile$/",
+        "/(^|/)[Dd]ockerfile\\.[a-zA-Z0-9-]+$/"
+      ],
       "matchStrings": [
         "FROM ghcr\\.io/astral-sh/uv:(?<currentValue>python\\d+\\.\\d+-bookworm-slim)"
       ],
@@ -50,7 +56,11 @@
       "commitMessageExtra": "to {{{newVersion}}}"
     },
     {
-      "matchPackageNames": ["python", "docker.io/library/python", "ghcr.io/astral-sh/uv"],
+      "matchPackageNames": [
+        "python",
+        "docker.io/library/python",
+        "ghcr.io/astral-sh/uv"
+      ],
       "groupName": "python version",
       "separateMinorPatch": true,
       "rangeStrategy": "bump",

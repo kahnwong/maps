@@ -25,6 +25,7 @@
   "dependencies": {
     "@protomaps/basemaps": "^5.7.2",
     "@quasar/extras": "^2.0.0",
+    "h3-js": "^4.5.0",
     "maplibre-gl": "^6.2.0",
     "pmtiles": "^4.4.1",
     "quasar": "^2.24.0",
