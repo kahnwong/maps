@@ -1,6 +1,6 @@
 <template>
   <q-card class="h3-panel" flat bordered>
-    <q-card-section class="q-gutter-sm">
+    <q-card-section class="q-gutter-sm" style="margin-top: -18px">
       <div class="h3-toggle-row">
         <q-toggle
           v-model="enabled"
