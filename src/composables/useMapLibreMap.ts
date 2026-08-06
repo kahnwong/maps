@@ -9,6 +9,7 @@ import { MAP_CENTER, MAP_ZOOM } from "@/config/map";
 import { themeMode } from "@/config/theme";
 import {
   formatMapQuery,
+  getQueryValue,
   parseMapQuery,
   parseThemeQuery
 } from "@/lib/map/query";
@@ -20,6 +21,7 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
   let map: maplibregl.Map | undefined;
   let protocol: Protocol | undefined;
   let queryUpdateTimer: ReturnType<typeof setTimeout> | undefined;
+  let isApplyingRouteQuery = false;
 
   const initialTheme = parseThemeQuery(route.query.theme);
   if (initialTheme) {
@@ -29,7 +31,7 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
   const initialMapView = parseMapQuery(route.query.map);
 
   function updateQuery() {
-    if (!map) {
+    if (!map || isApplyingRouteQuery) {
       return;
     }
 
@@ -50,6 +52,10 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
   }
 
   function scheduleQueryUpdate() {
+    if (isApplyingRouteQuery) {
+      return;
+    }
+
     if (queryUpdateTimer) {
       clearTimeout(queryUpdateTimer);
     }
@@ -63,6 +69,25 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
   function applyTheme() {
     map?.setStyle(getMapStyle(themeMode.value));
     updateQuery();
+  }
+
+  function applyMapQuery(value: unknown) {
+    if (!map) {
+      return;
+    }
+
+    const mapQuery = getQueryValue(value);
+    if (mapQuery === formatMapQuery(map)) {
+      return;
+    }
+
+    const mapView = parseMapQuery(value);
+    isApplyingRouteQuery = true;
+    map.jumpTo({
+      center: mapView?.center ?? MAP_CENTER,
+      zoom: mapView?.zoom ?? MAP_ZOOM
+    });
+    isApplyingRouteQuery = false;
   }
 
   maplibregl.setWorkerUrl(maplibreWorkerUrl);
@@ -90,6 +115,7 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
   });
 
   watch(themeMode, applyTheme);
+  watch(() => route.query.map, applyMapQuery);
 
   onUnmounted(() => {
     if (queryUpdateTimer) {
