@@ -89,7 +89,6 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
 
   function applyTheme() {
     map?.setStyle(getMapStyle(themeMode.value));
-    map?.once("styledata", syncH3Overlay);
     updateQuery();
   }
 
@@ -178,6 +177,19 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
       }
     });
     updateH3Overlay();
+  }
+
+  function ensureH3Overlay() {
+    if (
+      !map ||
+      !h3Enabled.value ||
+      !map.isStyleLoaded() ||
+      map.getLayer(H3_FILL_LAYER_ID)
+    ) {
+      return;
+    }
+
+    syncH3Overlay();
   }
 
   function updateH3Overlay() {
@@ -307,6 +319,8 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
       setH3ResolutionFromZoom();
       updateH3Overlay();
     });
+    map.on("style.load", syncH3Overlay);
+    map.on("idle", ensureH3Overlay);
     map.on("click", H3_FILL_LAYER_ID, handleH3Click);
 
     map.addControl(new maplibregl.NavigationControl(), "top-right");
@@ -325,6 +339,8 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
     }
 
     map?.off("move", scheduleQueryUpdate);
+    map?.off("style.load", syncH3Overlay);
+    map?.off("idle", ensureH3Overlay);
     map?.off("click", H3_FILL_LAYER_ID, handleH3Click);
     map?.remove();
     map = undefined;
