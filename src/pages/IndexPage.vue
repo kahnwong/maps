@@ -18,6 +18,7 @@ import {
   MAP_CENTER,
   MAP_ZOOM,
   MAP_GLYPHS_URL,
+  MAP_SPRITE_URL,
   PMTILES_URL
 } from "@/config/map";
 
@@ -28,6 +29,7 @@ let protocol: Protocol | undefined;
 const mapStyle: StyleSpecification = {
   version: 8,
   glyphs: MAP_GLYPHS_URL,
+  sprite: MAP_SPRITE_URL,
   sources: {
     protomaps: {
       type: "vector",

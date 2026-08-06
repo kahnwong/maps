@@ -3,7 +3,7 @@
 
 import { defineConfig } from "#q-app";
 
-import { MAP_GLYPHS_URL, PMTILES_URL } from "./src/config/map";
+import { MAP_GLYPHS_URL, MAP_SPRITE_URL, PMTILES_URL } from "./src/config/map";
 
 export default defineConfig((/* ctx */) => {
   return {
@@ -20,6 +20,12 @@ export default defineConfig((/* ctx */) => {
         "'self'",
         new URL(PMTILES_URL).origin,
         new URL(MAP_GLYPHS_URL).origin
+      ].join(" "),
+      cspImgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        new URL(MAP_SPRITE_URL).origin
       ].join(" ")
     },
 
