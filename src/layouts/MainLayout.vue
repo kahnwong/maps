@@ -2,7 +2,11 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Maps </q-toolbar-title>
+        <q-toolbar-title>
+          <router-link class="text-white" style="text-decoration: none" to="/">
+            Maps
+          </router-link>
+        </q-toolbar-title>
         <q-btn
           flat
           round
