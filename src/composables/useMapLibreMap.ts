@@ -7,7 +7,7 @@ import type { Ref } from "vue";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import { MAP_CENTER, MAP_ZOOM } from "@/config/map";
+import { H3_OVERLAY_COLORS, MAP_CENTER, MAP_ZOOM } from "@/config/map";
 import { themeMode } from "@/config/theme";
 import {
   formatMapQuery,
@@ -144,7 +144,7 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
       source: H3_SOURCE_ID,
       filter: ["==", ["geometry-type"], "Polygon"],
       paint: {
-        "fill-color": themeMode.value === "dark" ? "#64B5F6" : "#1565C0",
+        "fill-color": H3_OVERLAY_COLORS.fill[themeMode.value],
         "fill-opacity": 0.08
       }
     });
@@ -154,7 +154,7 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
       source: H3_SOURCE_ID,
       filter: ["==", ["geometry-type"], "Polygon"],
       paint: {
-        "line-color": themeMode.value === "dark" ? "#90CAF9" : "#0D47A1",
+        "line-color": H3_OVERLAY_COLORS.line[themeMode.value],
         "line-opacity": 0.8,
         "line-width": 3
       }
@@ -171,8 +171,8 @@ export function useMapLibreMap(mapContainer: Ref<HTMLDivElement | null>) {
         "text-ignore-placement": false
       },
       paint: {
-        "text-color": themeMode.value === "dark" ? "#FFFFFF" : "#0D47A1",
-        "text-halo-color": themeMode.value === "dark" ? "#000000" : "#FFFFFF",
+        "text-color": H3_OVERLAY_COLORS.text[themeMode.value],
+        "text-halo-color": H3_OVERLAY_COLORS.textHalo[themeMode.value],
         "text-halo-width": 1.5
       }
     });
