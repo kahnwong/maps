@@ -9,6 +9,7 @@
           :aria-label="`Switch to ${themeMode === 'light' ? 'dark' : 'light'} theme`"
           :icon="themeMode === 'light' ? 'dark_mode' : 'light_mode'"
           @click="toggleTheme"
+          style="margin-right: -8px"
         />
       </q-toolbar>
     </q-header>
