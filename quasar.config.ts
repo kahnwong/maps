@@ -4,8 +4,6 @@
 import { defineConfig } from "#q-app";
 import { readFileSync } from "node:fs";
 
-import { MAP_GLYPHS_URL, MAP_SPRITE_URLS, PMTILES_URL } from "./src/config/map";
-
 const MAPLIBRE_DIST_URL = new URL(
   "./node_modules/maplibre-gl/dist/",
   import.meta.url
@@ -20,22 +18,6 @@ export default defineConfig((/* ctx */) => {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [],
-
-    htmlVariables: {
-      cspConnectSrc: [
-        "'self'",
-        new URL(PMTILES_URL).origin,
-        new URL(MAP_GLYPHS_URL).origin,
-        "https://vzdko.karnwong.me"
-      ].join(" "),
-      cspScriptSrc: ["'self'", "https://vzdko.karnwong.me"].join(" "),
-      cspImgSrc: [
-        "'self'",
-        "data:",
-        "blob:",
-        new URL(MAP_SPRITE_URLS.light).origin
-      ].join(" ")
-    },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: ["app.scss"],
