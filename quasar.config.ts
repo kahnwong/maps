@@ -25,8 +25,10 @@ export default defineConfig((/* ctx */) => {
       cspConnectSrc: [
         "'self'",
         new URL(PMTILES_URL).origin,
-        new URL(MAP_GLYPHS_URL).origin
+        new URL(MAP_GLYPHS_URL).origin,
+        "https://vzdko.karnwong.me"
       ].join(" "),
+      cspScriptSrc: ["'self'", "https://vzdko.karnwong.me"].join(" "),
       cspImgSrc: [
         "'self'",
         "data:",
