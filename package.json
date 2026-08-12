@@ -40,7 +40,7 @@
     "oxlint": "^1.x",
     "oxlint-tsgolint": "^7.0.2001",
     "postcss": "^8.5.8",
-    "typescript": "^6.0.0",
+    "typescript": "^7.0.0",
     "vue-tsc": "^3.3.3"
   },
   "engines": {
