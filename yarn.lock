@@ -1869,9 +1869,9 @@ quansync@^0.2.11:
   integrity sha512-AifT7QEbW9Nri4tAwR5M/uzpBuqfZf+zwaEM/QkzEjj7NBuFD2rBuy0K3dE+8wltbezDV7JMA0WfnCPYRSYbXA==
 
 quasar@^2.24.0:
-  version "2.28.0"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.28.0.tgz#bf2f87d1da7e9fd334b458f82c734a97a8cf43a3"
-  integrity sha512-Ssbi8Mmf5DHyRqbgy0p757As6MHRdTNNOdNVO5sd9HJdbCyJdoaMG5xQkXVUl5a2eQ1xcGSnAn2n206XSoeXtw==
+  version "2.35.2"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.35.2.tgz#82c47572a4b80a1f7821d60882612b0f1b01cf55"
+  integrity sha512-zxX7yojl3usZDDD8fk03U6JYyCefxxEhYtFJT8iDjsNoW+Y3Zmet2io1pNsnSB060HwduJuoBJhKgIPv8WD10A==
 
 quickselect@^3.0.0:
   version "3.0.0"
