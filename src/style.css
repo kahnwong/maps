@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font:
+    14px Arial,
+    sans-serif;
+  color: #222;
+}
+.toolbar {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: #1976d2;
+  color: white;
+  box-shadow: 0 2px 5px #0003;
+  position: relative;
+  z-index: 2;
+}
+.title {
+  color: inherit;
+  text-decoration: none;
+  font-size: 21px;
+}
+button {
+  cursor: pointer;
+  font: inherit;
+  background: #1976d2;
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  min-height: 36px;
+  padding: 8px 12px;
+}
+button:hover {
+  filter: brightness(0.9);
+}
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid #ffab00;
+  outline-offset: 2px;
+}
+#theme-toggle {
+  background: transparent;
+  font-size: 25px;
+  width: 40px;
+  padding: 0;
+}
+main {
+  height: calc(100vh - 50px);
+  height: calc(100dvh - 50px);
+  position: relative;
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
+.h3-panel {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 260px;
+  max-width: calc(100% - 80px);
+  z-index: 1;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.toggle-row label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+#h3-enabled {
+  accent-color: #1976d2;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+#h3-resolution {
+  color: #666;
+  font-size: 12px;
+}
+.lookup-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: end;
+}
+.lookup-row label {
+  color: #666;
+  font-size: 12px;
+}
+.lookup-row input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-top: 4px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 8px;
+  font: inherit;
+  font-size: 16px;
+  height: 36px;
+}
+#notification {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  max-width: calc(100% - 32px);
+  padding: 12px 18px;
+  border-radius: 4px;
+  background: #237a35;
+  color: white;
+  text-align: center;
+}
+#notification:empty {
+  display: none;
+}
+#notification[data-error="true"] {
+  background: #b3261e;
+}
+noscript {
+  position: absolute;
+  bottom: 50%;
+  left: 16px;
+  background: white;
+  padding: 16px;
+}
+@media (max-width: 360px) {
+  .h3-panel {
+    left: 8px;
+    padding: 10px;
+  }
+  .toggle-row {
+    flex-wrap: wrap;
+  }
+}

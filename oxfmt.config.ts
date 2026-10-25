@@ -3,15 +3,7 @@ import { defineConfig } from "oxfmt";
 export default defineConfig({
   $schema: "./node_modules/oxfmt/configuration_schema.json",
 
-  ignorePatterns: [
-    "**/node_modules/",
-    "dist/",
-    "quasar.config.*.temporary.compiled*",
-    ".quasar/",
-    "src-cordova/",
-    "src-capacitor/",
-    "src/router/typed-router.d.ts"
-  ],
+  ignorePatterns: ["**/node_modules/", "dist/"],
 
   printWidth: 80,
   arrowParens: "avoid",
@@ -22,6 +14,5 @@ export default defineConfig({
   singleQuote: false,
   quoteProps: "as-needed",
   trailingComma: "none",
-  useTabs: false,
-  vueIndentScriptAndStyle: false
+  useTabs: false
 });

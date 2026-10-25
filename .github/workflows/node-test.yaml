@@ -19,6 +19,10 @@ jobs:
           node-version: "24"
           cache: "yarn"
       - name: Install requirements
-        run: yarn install
+        run: yarn install --frozen-lockfile
+      - name: Test
+        run: yarn test
+      - name: Lint
+        run: yarn lint:check
       - name: Build
         run: yarn build

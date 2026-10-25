@@ -1,43 +1,64 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title><%= productName %></title>
-
     <meta charset="utf-8" />
-    <meta name="description" content="<%= productDescription %>" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
-      name="viewport"
-      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
+      name="description"
+      content="Explore Thailand with PMTiles and H3 cells."
     />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="128x128"
-      href="icons/favicon-128x128.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="96x96"
-      href="icons/favicon-96x96.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="icons/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="icons/favicon-16x16.png"
-    />
-    <link rel="icon" type="image/ico" href="favicon.ico" />
+    <title>Maps</title>
+    <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <!-- quasar:entry-point -->
+    <header class="toolbar">
+      <a class="title" href="/">Maps</a>
+      <button id="theme-toggle" type="button" aria-label="Switch to dark theme"
+        >☾</button
+      >
+    </header>
+    <main>
+      <div id="map" aria-label="Interactive map"></div>
+      <section class="h3-panel" aria-label="H3 tools">
+        <div class="toggle-row">
+          <label><input id="h3-enabled" type="checkbox" /> H3 Overlay</label>
+          <span id="h3-resolution" hidden></span>
+        </div>
+        <form id="h3-form" class="lookup-row">
+          <label for="h3-cell"
+            >H3 cell ID
+            <input
+              id="h3-cell"
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+            />
+          </label>
+          <button type="submit">Go</button>
+        </form>
+        <form id="coordinates-form" class="lookup-row">
+          <label for="coordinates"
+            >latitude,longitude
+            <input
+              id="coordinates"
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+            />
+          </label>
+          <button type="submit">Go</button>
+        </form>
+      </section>
+      <div
+        id="notification"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+      <noscript
+        >JavaScript is required to display the interactive map.</noscript
+      >
+    </main>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
